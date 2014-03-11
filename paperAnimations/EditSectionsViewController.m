@@ -64,15 +64,31 @@
     [_animator addBehavior:_dynamic];
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onDrag:)];
-    
     [self.cardHeadlines addGestureRecognizer:panRecognizer];
+    
+    UITapGestureRecognizer *done = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoneButton:)];
+    done.numberOfTapsRequired = 1;
+    
+    [self.view addGestureRecognizer:done];
+    
+    
+    
     
 }
 
+
+- (void)onDoneButton:(UIGestureRecognizer *)sender {
+    CGRect mySensitiveRect = CGRectMake(220.0, 0.0, 100.0, 40.0);
+    
+    CGPoint p = [sender locationInView:self.view];
+    
+    if (CGRectContainsPoint(mySensitiveRect, p)) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void)onDrag:(UIPanGestureRecognizer *)gesture {
-    
-    
-    CGPoint touchPoint = [gesture locationInView:self.view];
+    //CGPoint touchPoint = [gesture locationInView:self.view];
     CGPoint tapPoint = [gesture locationInView:gesture.view];
     UIView* draggedView = gesture.view;
     
@@ -83,28 +99,30 @@
         _currentLocation = [gesture locationInView:self.view];
         
         [_animator updateItemUsingCurrentState:self.view];
-        
-        _attachment = [[UIAttachmentBehavior alloc] initWithItem:draggedView attachedToAnchor:_currentLocation];
+        _attachment = [[UIAttachmentBehavior alloc] initWithItem:draggedView attachedToAnchor:tapPoint];
         _attachment.frequency = 0;
         _attachment.length = 1;
 
-        [_animator addBehavior:_attachment];
         [_gravity addItem:draggedView];
         [_dynamic addItem:draggedView];
+        [_animator addBehavior:_attachment];
         
-        [UIView animateWithDuration:0.2 animations:^{
+        gesture.view.transform = CGAffineTransformMakeRotation((M_PI/90)-(M_PI/90*2));
+        
+        [UIView animateWithDuration:0.3 animations:^{
             self.placeholderCard.alpha = 1;
             
             CGRect card1 = self.cardFacebook.frame;
-                card1 = CGRectMake(50, card1.origin.y, card1.size.width, card1.size.height);
+                self.cardFacebook.frame = CGRectMake(50, card1.origin.y, card1.size.width, card1.size.height);
             CGRect empty = self.placeholderCard.frame;
-                empty = CGRectMake(empty.origin.x-50, empty.origin.y, empty.size.width, empty.size.height);
+                self.placeholderCard.frame = CGRectMake(150, empty.origin.y, empty.size.width, empty.size.height);
             
+            //   gesture.view.transform = CGAffineTransformMakeRotation(M_PI/90);
         }];
         
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations:^{
             [UIView setAnimationRepeatCount:100];
-            gesture.view.transform = CGAffineTransformMakeRotation(M_PI/90);
+            gesture.view.transform = CGAffineTransformMakeRotation((M_PI/90)+(M_PI/90));
         } completion:^(BOOL finished) { }];
         
         
@@ -112,34 +130,45 @@
     }
     
     if(gesture.state == UIGestureRecognizerStateChanged && _dragging){
+        [_attachment setAnchorPoint:_currentLocation];
         
-        [_attachment setAnchorPoint:touchPoint];
         
         _currentLocation = [gesture locationInView:self.view];
-
-
     }
     
     if(gesture.state == UIGestureRecognizerStateEnded){
         _dragging = NO;
         [gesture.view.layer removeAllAnimations];
         
-            [UIView animateWithDuration:0.3 animations:^{
+        if(_currentLocation.y < 300){
+            [_attachment setAnchorPoint:self.placeholderCard.frame.origin];
+            
+        } else {
+            [_attachment setAnchorPoint:self.originalPosition];
+        }
+
+        
+           /* [UIView animateWithDuration:0.3 animations:^{
                 self.placeholderCard.alpha = 0;
                 
                 if(_currentLocation.y < 300){
-                    draggedView.frame = CGRectMake(self.placeholderCard.frame.origin.x,
-                                                      self.placeholderCard.frame.origin.y,
-                                                      self.placeholderCard.frame.size.width,
-                                                      self.placeholderCard.frame.size.height);
+                    //draggedView.frame = CGRectMake(self.placeholderCard.frame.origin.x,
+                    //                                  self.placeholderCard.frame.origin.y,
+                    //                                  self.placeholderCard.frame.size.width,
+                    //                                  self.placeholderCard.frame.size.height);
                     
+                    [_attachment setAnchorPoint:self.placeholderCard.frame.origin];
+
                     NSLog(@"IT ENDED @ %f, SNAP INTO TOP", _currentLocation.y);
                     
                 } else if (_currentLocation.y > 300) {
-                    draggedView.frame = CGRectMake(self.originalPosition.x,
-                                                          self.originalPosition.y,
-                                                          self.cardHeadlines.frame.size.width,
-                                                          self.cardHeadlines.frame.size.height);
+                    //draggedView.frame = CGRectMake(self.originalPosition.x,
+                     //                                     self.originalPosition.y,
+                     //                                     self.cardHeadlines.frame.size.width,
+                     //                                     self.cardHeadlines.frame.size.height);
+                    
+                    [_attachment setAnchorPoint:self.originalPosition];
+
                     
                     NSLog(@"IT ENDED @ %f, SNAP INTO BOTTOM", _currentLocation.y);
 
@@ -150,7 +179,7 @@
                 [_dynamic addItem:draggedView];
                 [_animator removeBehavior:_attachment];
 
-            }];
+            }]; */
         
     }
 }
