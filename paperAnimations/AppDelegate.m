@@ -17,13 +17,16 @@
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
     
-   // UINavigationController *mvc = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    UINavigationController *mvc = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     
-    self.window.rootViewController = mainViewController;
+    self.window.rootViewController = mvc;
+    
+    [mvc setNavigationBarHidden:YES animated:YES];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     self.window.backgroundColor = [UIColor whiteColor];
+
     [self.window makeKeyAndVisible];
     return YES;
 }

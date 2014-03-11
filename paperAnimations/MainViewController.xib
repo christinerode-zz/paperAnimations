@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
                 <outlet property="foreground" destination="dIJ-f5-qGg" id="o18-zf-kuZ"/>
+                <outlet property="menu" destination="dQ9-ZY-oAO" id="8t7-bo-0h3"/>
                 <outlet property="scrollView" destination="Xp2-bo-3yV" id="S3b-aF-S6b"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -43,6 +44,7 @@
                         </scrollView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.0" green="0.090924573910000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </view>
             </subviews>

@@ -22,6 +22,8 @@
 		C797A27818BFD34700CADD24 /* paperAnimationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C797A27718BFD34700CADD24 /* paperAnimationsTests.m */; };
 		C797A28418BFE51F00CADD24 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C797A28218BFE51F00CADD24 /* MainViewController.m */; };
 		C797A28518BFE51F00CADD24 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C797A28318BFE51F00CADD24 /* MainViewController.xib */; };
+		C7A9B24718CEDCBA00014DFE /* EditSectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A9B24518CEDCB900014DFE /* EditSectionsViewController.m */; };
+		C7A9B24818CEDCBA00014DFE /* EditSectionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7A9B24618CEDCB900014DFE /* EditSectionsViewController.xib */; };
 		EE9F9A3535424F7FA32359E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D63A772EAC49B094E0E58D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,9 @@
 		C797A28118BFE51F00CADD24 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		C797A28218BFE51F00CADD24 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		C797A28318BFE51F00CADD24 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		C7A9B24418CEDCB900014DFE /* EditSectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSectionsViewController.h; sourceTree = "<group>"; };
+		C7A9B24518CEDCB900014DFE /* EditSectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSectionsViewController.m; sourceTree = "<group>"; };
+		C7A9B24618CEDCB900014DFE /* EditSectionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditSectionsViewController.xib; sourceTree = "<group>"; };
 		E8D63A772EAC49B094E0E58D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,6 +132,9 @@
 				C797A28118BFE51F00CADD24 /* MainViewController.h */,
 				C797A28218BFE51F00CADD24 /* MainViewController.m */,
 				C797A28318BFE51F00CADD24 /* MainViewController.xib */,
+				C7A9B24418CEDCB900014DFE /* EditSectionsViewController.h */,
+				C7A9B24518CEDCB900014DFE /* EditSectionsViewController.m */,
+				C7A9B24618CEDCB900014DFE /* EditSectionsViewController.xib */,
 				C797A25918BFD34700CADD24 /* Supporting Files */,
 			);
 			path = paperAnimations;
@@ -240,6 +248,7 @@
 			files = (
 				C797A25D18BFD34700CADD24 /* InfoPlist.strings in Resources */,
 				C797A28518BFE51F00CADD24 /* MainViewController.xib in Resources */,
+				C7A9B24818CEDCBA00014DFE /* EditSectionsViewController.xib in Resources */,
 				C704CEBD18C3E37C00C181DC /* Podfile in Resources */,
 				C797A26518BFD34700CADD24 /* Images.xcassets in Resources */,
 			);
@@ -293,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A9B24718CEDCBA00014DFE /* EditSectionsViewController.m in Sources */,
 				C797A26318BFD34700CADD24 /* AppDelegate.m in Sources */,
 				C797A28418BFE51F00CADD24 /* MainViewController.m in Sources */,
 				C797A25F18BFD34700CADD24 /* main.m in Sources */,

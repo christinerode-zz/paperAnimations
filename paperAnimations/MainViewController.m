@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "KASlideShow.h"
+#import "EditSectionsViewController.h"
 
 @interface MainViewController ()
 
@@ -22,6 +23,11 @@
 @property (strong, nonatomic) KASlideShow *slideshow;
 @property (nonatomic, assign) BOOL isMenuRevealed;
 
+@property (weak, nonatomic) IBOutlet UIView *menu;
+@property (assign, nonatomic) CGRect mySensitiveRect;
+
+@property (weak, nonatomic) UINavigationController *mvc;
+
 @end
 
 @implementation MainViewController
@@ -34,6 +40,7 @@
         self.title = @"Main View";
     }
     return self;
+    
 }
 
 - (void)viewDidLoad
@@ -41,11 +48,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     self.scrollView.contentSize = CGSizeMake(2348, 255);
     [self.scrollView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
     
     UILongPressGestureRecognizer *pressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
-    pressGestureRecognizer.minimumPressDuration = 0.1;
+    pressGestureRecognizer.minimumPressDuration = 0.2;
     [self.foreground addGestureRecognizer:pressGestureRecognizer];
     
     
@@ -61,16 +69,35 @@
     [self.foreground addSubview:_slideshow];
     [self.foreground sendSubviewToBack:_slideshow];
     
+    self.mySensitiveRect = CGRectMake(0.0, 300.0, 320.0, 100.0);
     
-    /* Taking out gesture recognizer for increasing card size, because it was really wonky.
-     
-     UIPanGestureRecognizer *scrollDragGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
-     scrollDragGesture.minimumNumberOfTouches = 1;
-     scrollDragGesture.maximumNumberOfTouches = 1;
-     [self.scrollView addGestureRecognizer:scrollDragGesture];
-     */
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    
+    gr.numberOfTapsRequired = 1;
+    
+    self.menu.userInteractionEnabled = YES;
+    [self.menu addGestureRecognizer:gr];
+    
+
+
 
 }
+
+- (void)handleGesture:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint p = [gestureRecognizer locationInView:self.menu];
+    if (CGRectContainsPoint(self.mySensitiveRect, p)) {
+        
+    EditSectionsViewController *controller = [[EditSectionsViewController alloc] init];
+        
+     UIWindow *window = [UIApplication sharedApplication].keyWindow;
+       [window.rootViewController presentViewController:controller animated:YES completion:^{
+           NSLog(@"Omg it worked");
+       }];
+    }
+    
+
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -83,7 +110,7 @@
 - (void)onLongPress:(UILongPressGestureRecognizer *)pressGestureRecognizer {
   
     CGPoint touch = [pressGestureRecognizer locationInView:self.view];
-    CGRect moveableForeground = pressGestureRecognizer.view.frame;
+    CGRect moveableForeground = self.foreground.frame;
     
     // I didn't even need this range for anything oh wells
     CGFloat const inMin = 0;
